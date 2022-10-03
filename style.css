@@ -1,0 +1,25 @@
+.container{
+    text-align:center;
+    color:rgb(2, 54, 2);  
+}
+
+#form {
+    margin-top: 30px;
+    text-align: center;
+}
+
+form div label {
+    width: 50px;
+    margin:10px;
+    margin-right: 30px;
+    
+    display: inline;
+    
+}
+
+
+form div input{
+    margin-left: 30px;
+    margin:10px;
+    
+}

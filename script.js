@@ -29,7 +29,7 @@ function validateName() {
         nameError.innerHTML = '✔'
 
     } else {
-        nameError.innerHTML = '❌'
+        nameError.innerHTML = '❌ '
     }
 }
 
@@ -40,28 +40,44 @@ function validateSurname() {
         surnameError.innerHTML = '✔'
 
         // submit button, wich will save information in local storage
-        submitButton.onclick = function () {
 
-            const object = {
-                firstName: firstName.value,
-                lastName: lastName.value,
-                address: address.value,
-                dateOfBirth: dateOfBirth.value,
-                gender: gender.value,
-                notes: notes.value
-            };
-
-            const value = JSON.stringify(object);
-
-            if (firstName.value && lastName.value && address.value) {
-                localStorage.setItem(key, value);
-                location.reload();
-            };
-        };
     } else {
         surnameError.innerHTML = '❌'
     }
 }
+
+
+
+submitButton.onclick = function () {
+
+
+
+    const object = {
+        firstName: firstName.value,
+        lastName: lastName.value,
+        address: address.value,
+        dateOfBirth: dateOfBirth.value,
+        gender: gender.value,
+        notes: notes.value
+    };
+
+    const value = JSON.stringify(object);
+
+    if (firstName.value && lastName.value && address.value) {
+        if (lastName.value.match(/^[A-Za-z ]+$/) && (firstName.value.match(/^[A-Za-z ]+$/))) {
+            localStorage.setItem(key, value);
+            location.reload();
+        } else {
+            alert('Invalid input value. FirstName and LastName requires only letters.')
+        }
+    };
+
+
+};
+
+
+
+
 
 
 
@@ -75,13 +91,13 @@ for (let i = 0; i < localStorage.length; i++) {
     // const info = localStorage.getItem(key);
 
 
-    tableBody.innerHTML += `<tr  ><th >${keyV}</td>
-    <td>${JSON.parse(localStorage.getItem(keyV)).lastName}</td>
-    <td>${JSON.parse(localStorage.getItem(keyV)).firstName}</td>
-    <td>${JSON.parse(localStorage.getItem(keyV)).address}</td>
-    <td>${JSON.parse(localStorage.getItem(keyV)).dateOfBirth}</td>
-    <td>${JSON.parse(localStorage.getItem(keyV)).gender}</td>
-    <td><button id='removeButton' value = [${keyV}]>remove</button></td>
+    tableBody.innerHTML += `<tr  ><td data-label='S. No.' >${keyV}</td>
+    <td data-label='Last name'>${JSON.parse(localStorage.getItem(keyV)).lastName}</td>
+    <td data-label='First name'>${JSON.parse(localStorage.getItem(keyV)).firstName}</td>
+    <td data-label='Address'>${JSON.parse(localStorage.getItem(keyV)).address}</td>
+    <td data-label='Date'>${JSON.parse(localStorage.getItem(keyV)).dateOfBirth}</td>
+    <td data-label='Gender'>${JSON.parse(localStorage.getItem(keyV)).gender}</td>
+    <td ><button id='removeButton' value = [${keyV}]>remove</button></td>
     <h4>${JSON.parse(localStorage.getItem(keyV)).notes}<br><button id='closeButton' >ok</button></h4>`
 };
 
